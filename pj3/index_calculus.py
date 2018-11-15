@@ -1,5 +1,19 @@
+#!/usr/bin/env python3
+
+######################################
+##                                  ##
+##  Solve the discrete log problem  ##                       
+##                                  ##
+##  See example in main             ##
+##                                  ##
+######################################
+
 import numpy as np
 
+__author__ = 'Vincent Maffet'
+__email__ = 'vincent.maffet@gatech.edu'
+__credits__ = 'Douglas R. Stinson'
+__data__ = 'Nov. 15, 2018'
 
 # yes-biased Monte Carlo algoritm for primality check
 # n - 1 = 2^k * m
@@ -156,22 +170,27 @@ def index_calculus(b, a, p, max_fb=20):
 ####################################
 ##              MAIN              ## 
 ####################################
-print('This tool computes discrete logarithms', 'Solves k in beta = alpha**k mod p', '', sep='\n')
+def main():
+    print('This tool computes discrete logarithms', 'Solves k in beta = alpha**k mod p', '', sep='\n')
 
-p = int(input('p = '))
-alpha = int(input('alpha = '))
-beta = int(input('beta = '))
+    p = int(input('p = '))
+    alpha = int(input('alpha = '))
+    beta = int(input('beta = '))
 
-fb_limit = int(input('\nfactor base limit = '))
+    fb_limit = int(input('\nfactor base limit = '))
 
-if fb_limit < alpha:
-    print('', 'Error:', 'Your factor base must include alpha', 'Set factor base limit > %d'%alpha, sep='\n')
-    exit()
+    if fb_limit < alpha:
+        print('', 'Error:', 'Your factor base must include alpha', 'Set factor base limit > %d'%alpha, sep='\n')
+        exit()
 
-lic = index_calculus(beta, alpha, p, max_fb=fb_limit)
+    lic = index_calculus(beta, alpha, p, max_fb=fb_limit)
 
-print()
-print('results:')
-print('k = ', lic)
-print('alpha**k mod p = ', pow(alpha, lic, p))
-print('valid:', pow(alpha, lic, p) == beta)
+    print()
+    print('results:')
+    print('k = ', lic)
+    print('alpha**k mod p = ', pow(alpha, lic, p))
+    print('valid:', pow(alpha, lic, p) == beta)
+
+
+if __name__ == '__main__':
+    main()
